@@ -18,9 +18,9 @@ new_cwd = "follow"
 prefix = "ctrl+space"
 
 # Agents
-focus_agent = "ctrl+shift+1..9"
-next_agent = "ctrl+shift+up"
-previous_agent = "ctrl+shift+down"
+focus_agent = "ctrl+1..9"
+next_agent = "ctrl+up"
+previous_agent = "ctrl+down"
 
 # Config and help
 reload_config = "prefix+q"
