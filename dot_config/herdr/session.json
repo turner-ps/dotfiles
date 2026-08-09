@@ -1,0 +1,154 @@
+{
+  "version": 3,
+  "workspaces": [
+    {
+      "id": "w6",
+      "custom_name": "DEV",
+      "identity_cwd": "/home/steventurner/Dev/forge-fitness-go",
+      "public_pane_numbers": {
+        "22": 3,
+        "24": 5,
+        "25": 6,
+        "20": 2,
+        "19": 1,
+        "23": 4
+      },
+      "next_public_pane_number": 7,
+      "public_tab_numbers": [
+        1,
+        2,
+        3
+      ],
+      "next_public_tab_number": 4,
+      "tabs": [
+        {
+          "custom_name": "1. oc/nvim",
+          "layout": {
+            "Split": {
+              "direction": "Horizontal",
+              "ratio": 0.34999996,
+              "first": {
+                "Pane": 19
+              },
+              "second": {
+                "Pane": 20
+              }
+            }
+          },
+          "panes": {
+            "19": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            },
+            "20": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            }
+          },
+          "zoomed": false,
+          "focused": 19,
+          "root_pane": 19
+        },
+        {
+          "custom_name": "2. server/db",
+          "layout": {
+            "Split": {
+              "direction": "Horizontal",
+              "ratio": 0.5,
+              "first": {
+                "Split": {
+                  "direction": "Vertical",
+                  "ratio": 0.5,
+                  "first": {
+                    "Pane": 22
+                  },
+                  "second": {
+                    "Pane": 25
+                  }
+                }
+              },
+              "second": {
+                "Pane": 24
+              }
+            }
+          },
+          "panes": {
+            "22": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            },
+            "24": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            },
+            "25": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            }
+          },
+          "zoomed": false,
+          "focused": 24,
+          "root_pane": 22
+        },
+        {
+          "custom_name": "3. vsc",
+          "layout": {
+            "Pane": 23
+          },
+          "panes": {
+            "23": {
+              "cwd": "/home/steventurner/Dev/forge-fitness-go"
+            }
+          },
+          "zoomed": false,
+          "focused": 23,
+          "root_pane": 23
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "w7",
+      "custom_name": "SCRATCH",
+      "identity_cwd": "/home/steventurner/.config/herdr",
+      "public_pane_numbers": {
+        "31": 7,
+        "21": 1
+      },
+      "next_public_pane_number": 8,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 2,
+      "tabs": [
+        {
+          "custom_name": "1. scratch",
+          "layout": {
+            "Split": {
+              "direction": "Horizontal",
+              "ratio": 0.5,
+              "first": {
+                "Pane": 21
+              },
+              "second": {
+                "Pane": 31
+              }
+            }
+          },
+          "panes": {
+            "21": {
+              "cwd": "/home/steventurner/.config/herdr"
+            },
+            "31": {
+              "cwd": "/home/steventurner/.config/herdr"
+            }
+          },
+          "zoomed": false,
+          "focused": 31,
+          "root_pane": 21
+        }
+      ],
+      "active_tab": 0
+    }
+  ],
+  "active": 1,
+  "selected": 1,
+  "sidebar_width": 26,
+  "sidebar_section_split": 0.5,
+  "collapsed_space_keys": []
+}
