@@ -3,8 +3,9 @@
 
 [theme]
 # tmux ran on the terminal's own palette (bg=default, fg=default, ANSI blue accents)
-name = "terminal"
+name = "catppuccin"
 
+auto_switch = false
 [theme.custom]
 # The active tab is drawn as panel_bg text on an accent background, so panel_bg
 # has to be dark for it to read - same colors as status-left's "#[fg=black,bg=blue]"
@@ -13,6 +14,9 @@ panel_bg = "black"
 [terminal]
 # Matches -c "#{pane_current_path}" on every split, window, and session
 new_cwd = "follow"
+
+[experimental]
+pane_history = true
 
 [keys]
 prefix = "ctrl+space"
@@ -93,3 +97,7 @@ mouse_capture = true
 
 # tmux showed #h in status-right; the ZOOM flag shows there automatically
 tab_bar_hostname = true
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+delivery = "off"
