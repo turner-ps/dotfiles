@@ -1,0 +1,2 @@
+dot_config/herdr/*
+!dot_config/herdr/config.toml
