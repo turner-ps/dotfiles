@@ -80,8 +80,8 @@ next_workspace = ["prefix+shift+n", "alt+down"]
 accent = "blue"
 
 # tmux drew single-line dividers between adjacent panes and no outer frame
-pane_gaps = false
-pane_outer_borders = true
+pane_gaps = true
+pane_outer_borders = false
 
 # tmux had no scrollbar column beside its panes
 pane_scrollbars = false
@@ -96,7 +96,7 @@ prompt_new_tab_name = false
 mouse_capture = true
 
 # tmux showed #h in status-right; the ZOOM flag shows there automatically
-tab_bar_hostname = true
+# tab_bar_hostname = true
 
 show_agent_labels_on_pane_borders = true
 [ui.toast]
