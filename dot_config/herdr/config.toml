@@ -1,3 +1,4 @@
+onboarding = false
 # Mirrors the Omarchy tmux config in config/tmux/tmux.conf
 # tmux session -> herdr workspace, tmux window -> herdr tab, tmux pane -> herdr pane
 
@@ -81,7 +82,7 @@ accent = "blue"
 
 # tmux drew single-line dividers between adjacent panes and no outer frame
 pane_gaps = true
-pane_outer_borders = false
+pane_outer_borders = true
 
 # tmux had no scrollbar column beside its panes
 pane_scrollbars = false
