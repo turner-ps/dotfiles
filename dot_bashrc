@@ -12,6 +12,8 @@ if [[ -f /etc/omarchy.conf ]]; then
 else
   export OMARCHY_PATH=/usr/share/omarchy
 fi
+# Avoid alias expansion breaking Omarchy function definitions when re-sourcing.
+unalias ga 2>/dev/null
 source "$OMARCHY_PATH/default/bash/rc"
 
 # Add your own exports, aliases, and functions here.
@@ -19,9 +21,11 @@ source "$OMARCHY_PATH/default/bash/rc"
 # Make an alias for invoking commands you use constantly
 # alias p='python'
 alias faf='fastfetch'
-alias cm='chezmoi'
+alias cz='chezmoi'
+alias czcd='chezmoi cd'
 
 # Git
+alias lzg='lazygit'
 alias gb='git branch'
 alias ga='git add'
 alias gp='git push'
