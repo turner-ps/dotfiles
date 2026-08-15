@@ -22,6 +22,9 @@ pane_history = true
 [keys]
 prefix = "ctrl+space"
 
+# Settings menu; default is prefix+s
+settings = ["prefix+m", "prefix+s"]
+
 # Agents
 focus_agent = "ctrl+1..9"
 next_agent = "ctrl+up"
@@ -96,9 +99,16 @@ prompt_new_tab_name = false
 # set -g mouse on
 mouse_capture = true
 
-# tmux showed #h in status-right; keep Herdr's zoom flag there too
+# status-right had the zoom flag followed by #h
 tab_bar_right = [{ type = "zoom" }, { type = "hostname" }]
 
+# set -g set-titles on / set -g set-titles-string '#h:#W', where tmux's #W was
+# the basename of the pane cwd. This is what Hyprland shows in the group bar,
+# and it resolves on the server so remote sessions name the remote host.
+window_title = "{hostname}: {workspace}"
+
 show_agent_labels_on_pane_borders = true
+
+status_indicators = "symbols"
 [ui.toast]
 delivery = "off"
