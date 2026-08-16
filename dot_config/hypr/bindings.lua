@@ -48,3 +48,7 @@ o.bind(
 	"Google Messages",
 	{ webapp = "https://messages.google.com/web/conversations", focus = true }
 )
+
+-- Password Manager
+hl.unbind("SUPER + SHIFT + SLASH")
+o.bind("SUPER + SHIFT + SLASH", "Passwords", { launch = "bitwarden" })
