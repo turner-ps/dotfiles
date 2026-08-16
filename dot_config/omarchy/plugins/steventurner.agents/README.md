@@ -136,6 +136,23 @@ omarchy bar set omarchy.agents providers '{
 hide a subscription that is installed. Disabled agents are also skipped when
 the records regenerate.
 
+### Hidden agents troubleshooting
+
+If an agent with known history does not appear in the panel, check the
+`providers` object for this widget in `~/.config/omarchy/shell.json` before
+deleting or rebuilding history. For example, Claude may have been intentionally
+hidden with:
+
+```bash
+omarchy bar set steventurner.agents providers '{"claude":{"enabled":false}}' --json
+```
+
+Re-enable it with:
+
+```bash
+omarchy bar set steventurner.agents providers '{"claude":{"enabled":true}}' --json
+```
+
 With `syncMode` on, every `*.json` snapshot in `syncDir` is merged, so today,
 the last 7 days, and the all-time totals cover every machine you code on —
 active days are unioned by date rather than summed. Rate limits stay

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# omarchy:summary=Print system activity stats for the shell
+# omarchy:group=system
+# omarchy:args=[--bar-widget|--activity-reader|--activity-resources|--activity-processes|--activity-thermals|--activity-gpus|--activity-process-power|--activity-process-power-reader|--activity-storage]
+
+set -euo pipefail
+
+readonly helper="${BASH_SOURCE[0]%/*}/activity-sampler"
+[[ -x $helper ]] || exit 77
+exec "$helper" "$@"

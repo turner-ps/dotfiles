@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+set -u
+
+url="https://www.youtube.com/watch?v=5yx6BWlEVcY"
+runtime_dir="${XDG_RUNTIME_DIR:-/tmp}"
+socket="$runtime_dir/omarchy-chillhop-mpv.sock"
+pidfile="$runtime_dir/omarchy-chillhop-mpv.pid"
+state_home="${XDG_STATE_HOME:-$HOME/.local/state}"
+log_dir="$state_home/omarchy"
+log_file="$log_dir/chillhop.log"
+startup_grace_seconds=45
+
+mkdir -p "$log_dir"
+
+is_running() {
+  local pid=""
+  [[ -r "$pidfile" ]] && pid="$(<"$pidfile")"
+  [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null
+}
+
+ipc() {
+  [[ -S "$socket" ]] || return 1
+  printf '%s\n' "$1" | timeout 1s socat -t 0.4 - "UNIX-CONNECT:$socket" 2>/dev/null
+}
+
+send() {
+  ipc "$1" >/dev/null || true
+}
+
+get_property() {
+  ipc "{\"command\":[\"get_property\",\"$1\"]}" || true
+}
+
+paused() {
+  local out
+  out="$(get_property pause)"
+  [[ "$out" == *'"data":true'* ]]
+}
+
+core_idle() {
+  local out
+  out="$(get_property core-idle)"
+  [[ "$out" == *'"data":true'* ]]
+}
+
+process_age_seconds() {
+  [[ -r "$pidfile" ]] || { printf '999999\n'; return; }
+  local started now
+  started="$(stat -c %Y "$pidfile" 2>/dev/null || printf '0')"
+  now="$(date +%s)"
+  printf '%s\n' "$((now - started))"
+}
+
+status() {
+  if is_running; then
+    local is_paused="false"
+    paused && is_paused="true"
+
+    if [[ "$is_paused" == "true" ]]; then
+      printf '{"running":true,"paused":true,"stalled":false,"loading":false}\n'
+      return
+    fi
+
+    if core_idle; then
+      if (( $(process_age_seconds) < startup_grace_seconds )); then
+        printf '{"running":true,"paused":false,"stalled":false,"loading":true}\n'
+        return
+      fi
+      send '{"command":["quit"]}'
+      sleep 0.1
+      rm -f "$pidfile" "$socket"
+      printf '{"running":false,"paused":false,"stalled":true,"loading":false}\n'
+      return
+    fi
+
+    printf '{"running":true,"paused":false,"stalled":false,"loading":false}\n'
+  else
+    rm -f "$pidfile" "$socket"
+    printf '{"running":false,"paused":false,"stalled":false,"loading":false}\n'
+  fi
+}
+
+start() {
+  if is_running; then
+    if paused; then
+      send '{"command":["set_property","pause",false]}'
+      status
+      return
+    fi
+
+    if core_idle; then
+      send '{"command":["quit"]}'
+      sleep 0.1
+      rm -f "$pidfile" "$socket"
+      start
+      return
+    fi
+    send '{"command":["set_property","pause",false]}'
+    status
+    return
+  fi
+
+  rm -f "$socket"
+  mpv \
+    --no-terminal \
+    --force-window=no \
+    --input-ipc-server="$socket" \
+    --title="Omarchy Chillhop Radio" \
+    --vid=no \
+    --ytdl-format='bestvideo[height<=720]+bestaudio/best[height<=720]/best' \
+    "$url" >>"$log_file" 2>&1 &
+  printf '%s\n' "$!" >"$pidfile"
+
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    [[ -S "$socket" ]] && break
+    sleep 0.1
+  done
+
+  send '{"command":["set_property","pause",false]}'
+  status
+}
+
+pause_stream() {
+  if is_running; then
+    send '{"command":["set_property","pause",true]}'
+  fi
+  status
+}
+
+resume_stream() {
+  start
+}
+
+toggle_stream() {
+  if ! is_running; then
+    start
+  elif paused; then
+    resume_stream
+  elif core_idle; then
+    start
+  else
+    pause_stream
+  fi
+}
+
+case "${1:-status}" in
+  status) status ;;
+  start|resume) start ;;
+  pause) pause_stream ;;
+  toggle) toggle_stream ;;
+  open-youtube) omarchy launch browser "$url" >/dev/null 2>&1 || xdg-open "$url" >/dev/null 2>&1 & ;;
+  *)
+    printf 'usage: %s {status|start|resume|pause|toggle|open-youtube}\n' "$0" >&2
+    exit 2
+    ;;
+esac
