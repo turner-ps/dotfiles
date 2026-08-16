@@ -33,3 +33,18 @@
 -- Better Nav
 o.bind("CTRL + PERIOD", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
 o.bind("CTRL + COMMA", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
+
+-- Default Apps
+-- Mail
+hl.unbind("SUPER + SHIFT + E")
+hl.unbind("SUPER + SHIFT + ALT + E")
+o.bind("SUPER + SHIFT + E", "Email", { webapp = "https://mail.proton.me/u/0/almost-all-mail", focus = true })
+
+-- Messages
+hl.unbind("SUPER + SHIFT + G")
+hl.unbind("SUPER + SHIFT + CTRL + G")
+o.bind(
+	"SUPER + SHIFT + G",
+	"Google Messages",
+	{ webapp = "https://messages.google.com/web/conversations", focus = true }
+)
